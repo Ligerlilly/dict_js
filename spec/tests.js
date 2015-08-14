@@ -45,7 +45,8 @@ var word = function(phrase){
   };
 
   clear = function(){
-    return word_array = [];
+    word_array = [];
+    return word_array;
 
   };
 
@@ -68,6 +69,26 @@ var word = function(phrase){
            find  : find };
 };
 
+var definition = function(){
+  var add_def, defs;
+  defs = [];
+  add_def = function(string){
+    defs.push(string);
+    return defs;
+  };
+
+  return { add_def : add_def };
+};
+
+describe("Definition", function(){
+  describe("#add definition", function(){
+    it("returns an array of definitions", function(){
+      var def = definition();
+
+      expect(isEquivalent(def.add_def('blah blah'), ['blah blah'])).to.equal(true);
+    });
+  });
+});
 
 describe('Word', function(){
   describe('#term', function(){
