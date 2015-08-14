@@ -30,9 +30,10 @@ function isEquivalent(a, b) {
 
 
 var word = function(phrase){
-  var term, word_array, save, all, clear;
+  var term, word_array, save, all, clear, id;
   term = phrase;
   word_array = [];
+  id = word_array.length + 1;
 
   save = function(object){
     word_array.push(object);
@@ -50,7 +51,8 @@ var word = function(phrase){
   return { term  : term,
            save  : save,
            all   : all,
-           clear : clear};
+           clear : clear,
+           id    : id };
 };
 
 
@@ -83,6 +85,13 @@ describe('Word', function(){
       var word_holder = word();
       test = word_holder.clear();
       expect(isEquivalent(test, [])).to.equal(true);
+    });
+  });
+
+  describe('#id', function(){
+    it('returns id number', function(){
+      var new_word = word('Hi');
+      expect(new_word.id).to.equal(1);
     });
   });
 });
