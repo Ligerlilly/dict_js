@@ -30,7 +30,7 @@ function isEquivalent(a, b) {
 
 
 var word = function(phrase){
-  var term, word_array, save, all, clear, id;
+  var term, word_array, save, all, clear, id, find;
   term = phrase;
   word_array = [];
   id = word_array.length + 1;
@@ -48,11 +48,24 @@ var word = function(phrase){
     return word_array = [];
 
   };
+
+  find = function(id){
+    var words = this.all();
+    found_word = null;
+    for (var i = 0; i < words.length; i++){
+      if (words[i].id === id){
+        found_word = words[i];
+      }
+    }
+    return found_word;
+  };
+
   return { term  : term,
            save  : save,
            all   : all,
            clear : clear,
-           id    : id };
+           id    : id,
+           find  : find };
 };
 
 
@@ -92,6 +105,15 @@ describe('Word', function(){
     it('returns id number', function(){
       var new_word = word('Hi');
       expect(new_word.id).to.equal(1);
+    });
+  });
+
+  describe("#find", function(){
+    it("returns object given id argument", function(){
+      var new_word = word('Homer');
+      var word_holder = word();
+      word_holder.save(new_word);
+      expect(word_holder.find(1)).to.equal(new_word);
     });
   });
 });
