@@ -33,8 +33,9 @@ var word = function(phrase){
   var term, word_array, save, all, clear;
   term = phrase;
   word_array = [];
-  save = function(){
-    word_array.push(this);
+
+  save = function(object){
+    word_array.push(object);
     return word_array;
   };
 
@@ -54,33 +55,33 @@ var word = function(phrase){
 
 
 describe('Word', function(){
-  before(function(){
-    new_word = word('Homer');
-    new_word.clear();
-  });
-  describe('#word', function(){
+  describe('#term', function(){
     it('returns the string word was initialized with', function(){
+      var new_word = word('Homer');
       assert.equal(new_word.term, "Homer");
     });
   });
 
   describe('#save', function(){
     it('returns array containing this', function(){
-      var test = new_word.save();
-      expect(test[0].term).to.equal(new_word.term);
+      var new_word = word('Homer');
+      var word_holder = word();
+      var test = word_holder.save(new_word);
+      expect(isEquivalent(test, [new_word])).to.equal(true);
     });
   });
 
   describe('#all', function(){
     it('returns word_array', function(){
-      //new_word.clear();
-      expect(isEquivalent(new_word.all(), [])).to.equal(true);
+      var word_holder = word();
+      expect(isEquivalent(word_holder.all(), [])).to.equal(true);
     });
   });
 
   describe('#clear', function(){
     it('returns empty word_array', function(){
-      test = new_word.clear();
+      var word_holder = word();
+      test = word_holder.clear();
       expect(isEquivalent(test, [])).to.equal(true);
     });
   });
