@@ -70,7 +70,7 @@ var word = function(phrase){
 };
 
 var definition = function(){
-  var add_def, defs, all, save, id;
+  var add_def, defs, all, save, id, find;
   defs = [];
   id = defs.length + 1;
   add_def = function(string){
@@ -87,10 +87,22 @@ var definition = function(){
     return defs;
   };
 
+  find = function(id){
+    var defs = this.all();
+    found_def = null;
+    for (var i = 0; i < defs.length; i++){
+      if (defs[i].id === id){
+        found_def = defs[i];
+      }
+    }
+    return found_def;
+  };
+
   return { add_def : add_def,
            all     : all,
            save    : save,
-           id      : id};
+           id      : id,
+           find    : find };
 };
 
 describe("Definition", function(){
@@ -122,6 +134,15 @@ describe("Definition", function(){
     it('returns id number', function(){
       var new_def = definition('Hi');
       expect(new_def.id).to.equal(1);
+    });
+  });
+
+  describe("#find", function(){
+    it("returns object given id argument", function(){
+      var new_def = definition('Homer');
+      var def_holder = definition();
+      def_holder.save(new_def);
+      expect(def_holder.find(1)).to.equal(new_def);
     });
   });
 });
