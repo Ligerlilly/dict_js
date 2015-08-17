@@ -70,14 +70,27 @@ var word = function(phrase){
 };
 
 var definition = function(){
-  var add_def, defs;
+  var add_def, defs, all, save, id;
   defs = [];
+  id = defs.length + 1;
   add_def = function(string){
     defs.push(string);
     return defs;
   };
 
-  return { add_def : add_def };
+  all = function(){
+    return defs;
+  };
+
+  save = function(object){
+    defs.push(object);
+    return defs;
+  };
+
+  return { add_def : add_def,
+           all     : all,
+           save    : save,
+           id      : id};
 };
 
 describe("Definition", function(){
@@ -88,7 +101,32 @@ describe("Definition", function(){
       expect(isEquivalent(def.add_def('blah blah'), ['blah blah'])).to.equal(true);
     });
   });
+
+  describe('#all', function(){
+    it('returns an empty array at first', function(){
+      var def_holder = definition();
+      expect(isEquivalent(def_holder.all(), [])).to.equal(true);
+    });
+  });
+
+  describe('#save', function(){
+    it('returns array containing this', function(){
+      var new_def = definition('Fictional cartoon character');
+      var def_holder = definition();
+      var test = def_holder.save(new_def);
+      expect(isEquivalent(test, [new_def])).to.equal(true);
+    });
+  });
+
+  describe('#id', function(){
+    it('returns id number', function(){
+      var new_def = definition('Hi');
+      expect(new_def.id).to.equal(1);
+    });
+  });
 });
+
+
 
 describe('Word', function(){
   describe('#term', function(){
@@ -108,7 +146,7 @@ describe('Word', function(){
   });
 
   describe('#all', function(){
-    it('returns word_array', function(){
+    it('returns an empty array at first', function(){
       var word_holder = word();
       expect(isEquivalent(word_holder.all(), [])).to.equal(true);
     });
