@@ -1,0 +1,9 @@
+<h2>Definition form</h2>
+<form  action="/add_def" method="post">
+  <div class='form-group'>
+    <label for="def">Enter a word</label>
+    <input type="hidden" name="word" value="{{word.id}}">
+    <input type="text" name="def" class='form-control'>
+  </div>
+  <button type='submit' class='btn btn-success'>Submit</button>
+</form>
