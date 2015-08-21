@@ -1,0 +1,25 @@
+<h1>Definitions</h1>
+<br>
+<div class='row'>
+  <div class='col-sm-6'>
+    <h2>{{word.term}}</h2>
+    <p>
+      If there aren't any definitions click the link below and add one
+    </p>
+    <a href="/word/{{word.id}}/def_form">Add Definition</a>
+  </div>
+  <br>
+  <div class='col-sm-6'>
+    <p>
+      Definitions
+    </p>
+
+    <ul class='list'>
+      {{#if def }}
+        {{#each def}}
+          <li>{{this}}</li>
+        {{/each}}
+      {{/if}}
+    </ul>
+  </div>
+</div>
